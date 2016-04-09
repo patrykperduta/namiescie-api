@@ -18,13 +18,40 @@ var people = [
     sex: "female",
     topic: "piwo",
     position: {
+      lat: 51.083953,
+      lng: 17.009837
+    }
+  },
+  {
+    id: uuid.v4(),
+    sex: "male",
+    topic: "piwo",
+    position: {
+      lat: 51.082915,
+      lng: 17.007123
+    }
+  },
+  {
+    id: uuid.v4(),
+    sex: "female",
+    topic: "piwo",
+    position: {
+      lat: 51.082184,
+      lng: 17.011994
+    }
+  },
+  {
+    id: uuid.v4(),
+    sex: "female",
+    topic: "piwo",
+    position: {
       lat: 51.087775,
       lng: 17.013924
     }
   },
   {
     id: uuid.v4(),
-    sex: "female",
+    sex: "male",
     topic: "piwo",
     position: {
       lat: 51.087406,
