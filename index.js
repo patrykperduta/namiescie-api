@@ -1,12 +1,28 @@
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
-  });
+function on_intro(payload) {
+    console.log('received:' + payload);
+    // broadcast emit people
+}
+
+function on_ping(payload) {
+    console.log('received:' + payload);
+    // id emit ping
+}
+
+function on_pong(payload) {
+    console.log('received:' + payload);
+    // id emit meet
+    // user emit meet
+}
+
+io.on('connection', function(socket) {
+    socket.on('intro', on_intro);
+    socket.on('intro', on_ping);
+    socket.on('intro', on_pong);
 });
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+http.listen(3000, function() {
+    console.log('listening on *:3000');
 });
