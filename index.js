@@ -42,13 +42,13 @@ var places = [
       lng: 17.025007
     }
   },
+  {
     id: uuid.v4(),
     name: "Cukiernia Furtak",
     position: {
       lat: 51.085025,
       lng: 17.010706
     }
-  {
   }
 ];
 
