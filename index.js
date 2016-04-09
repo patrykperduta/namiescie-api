@@ -41,10 +41,12 @@ var meetpoints = {
 
 var sockets = {};
 
+
 function get_people_list_by_topic(people, topic){
     return Object.keys(people[topic])
       .map(id => Object.assign({}, people[id], { id: id }))
 }
+
 
 function handle_intro(socket, payload) {
     var person = {
@@ -57,22 +59,44 @@ function handle_intro(socket, payload) {
     people[topic][id] = person;
     sockets[id] = socket;
     socket.id = id;
+    socket.topic = topic;
 
     console.log('on_intro received:', JSON.stringify(payload));
     io.emit('people', get_people_list_by_topic(people, topic));
 }
 
+
 function handle_ping(socket, payload) {
     console.log('on_ping received:', JSON.stringify(payload));
-    // id emit ping
+    var invited_id = payload.id;
+    var invited_socket = sockets[invited_id];
+    var topic = socket.topic;
+    var person = people[topic][socket.id];
+    invited_socket.emit('ping', person);
 }
+
 
 function handle_pong(socket, payload) {
     console.log('on_pong received:', JSON.stringify(payload));
-    // id emit meet
-    // user emit meet
+    if (payload.acceted == true) {
+      var accepted_person_id = payload.id;
+      var accepted_person_socket = sockets[accepted_person_id];
+      var topic = socket.topic;
+      var person = people[topic][socket.id];
+      // get poi
+      var poi = {
+        name: 'miejsce',
+        position:{}
+      };
+
+      accepted_person_socket.emit('meet', poi);
+      socket.emit('meet', poi);
+    }
+    else {
+      // TODO: not acceted
+    }
 }
-//
+
 
 io.on('connection', function(socket) {
     socket.on('intro', payload => handle_intro(socket, payload));
