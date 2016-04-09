@@ -8,7 +8,7 @@ var people = {
         sex: "male",
         position: {
             lat: 51.084812,
-            lgt: 17.013667
+            lng: 17.013667
         }
     },
     2: {
@@ -29,8 +29,9 @@ var people = {
 
 function get_people_list(people){
     var return_list = [];
-    for (var key in Object.keys(people)){
-        var key = Object.keys(people)[key];
+    var people_ids = Object.keys(people);
+    for (var index in people_ids){
+        var key = people_ids[index];
         var person = people[key];
         person.id = key;
         return_list.push(person);
