@@ -4,34 +4,36 @@ var io = require('socket.io')(http);
 
 
 var people = {
-    1: {
-        sex: "male",
-        position: {
-            lat: 51.084812,
-            lng: 17.013667
+    piwo: {
+        1: {
+            sex: "male",
+            position: {
+                lat: 51.084812,
+                lng: 17.013667
+            }
+        },
+        2: {
+            sex: "female",
+            position: {
+                lat: 51.087775,
+                lng: 17.013924
+            }
+        },
+        3: {
+            sex: "female",
+            position: {
+                lat: 51.087406,
+                lng: 17.007773
+            }
         }
     },
-    2: {
-        sex: "female",
-        position: {
-            lat: 51.087775,
-            lng: 17.013924
-        }
-    },
-    3: {
-        sex: "female",
-        position: {
-            lat: 51.087406,
-            lng: 17.007773
-        }
-    }
 };
 
 var sockets = {};
 
-function get_people_list(people){
-    return Object.keys(people)
-      .map(id => Object.assign({}, people[id], { id: id }));
+function get_people_list_by_topic(people, topic){
+    return Object.keys(people[topic])
+      .map(id => Object.assign({}, people[id], { id: id }))
 }
 
 function handle_intro(socket, payload) {
@@ -42,11 +44,12 @@ function handle_intro(socket, payload) {
     var topic = payload.topic;
     var id = payload.id;
 
-    people[id] = person;
+    people[topic][id] = person;
     sockets[id] = socket;
+    socket.id = id;
 
     console.log('on_intro received:', JSON.stringify(payload));
-    io.emit('people', get_people_list(people));
+    io.emit('people', get_people_list_by_topic(people, topic));
 }
 
 function handle_ping(socket, payload) {
