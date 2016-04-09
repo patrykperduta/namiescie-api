@@ -21,7 +21,7 @@ var people = {
     3: {
         sex: "female",
         position: {
-            lat: 51.087406, 
+            lat: 51.087406,
             lng: 17.007773
         }
     }
@@ -46,8 +46,8 @@ function handle_pong(payload) {
 
 io.on('connection', function(socket) {
     socket.on('intro', handle_intro);
-    socket.on('intro', handle_ping);
-    socket.on('intro', handle_pong);
+    socket.on('ping', handle_ping);
+    socket.on('pong', handle_pong);
 });
 
 
