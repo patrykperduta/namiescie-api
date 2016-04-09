@@ -21,23 +21,23 @@ var people = {
     3: {
         sex: "female",
         position: {
-            lat: 51.087406,
+            lat: 51.087406, 
             lng: 17.007773
         }
     }
 };
 
-function on_intro(payload) {
+function handle_intro(payload) {
     console.log('on_intro received:' + payload);
-    // broadcast emit people
+    socket.broadcast.emit('people', people);
 }
 
-function on_ping(payload) {
+function handle_ping(payload) {
     console.log('on_ping received:' + payload);
     // id emit ping
 }
 
-function on_pong(payload) {
+function handle_pong(payload) {
     console.log('on_pong received:' + payload);
     // id emit meet
     // user emit meet
@@ -45,9 +45,9 @@ function on_pong(payload) {
 
 
 io.on('connection', function(socket) {
-    socket.on('intro', on_intro);
-    socket.on('intro', on_ping);
-    socket.on('intro', on_pong);
+    socket.on('intro', handle_intro);
+    socket.on('intro', handle_ping);
+    socket.on('intro', handle_pong);
 });
 
 
