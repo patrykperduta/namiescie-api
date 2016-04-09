@@ -47,6 +47,9 @@ function get_people_list_by_topic(people, topic){
       .map(id => Object.assign({}, people[id], { id: id }))
 }
 
+function get_meetpoint(meetpoints) {
+    return meetpoints['1'];
+}
 
 function handle_intro(socket, payload) {
     var person = {
@@ -83,14 +86,10 @@ function handle_pong(socket, payload) {
       var accepted_person_socket = sockets[accepted_person_id];
       var topic = socket.topic;
       var person = people[topic][socket.id];
-      // get poi
-      var poi = {
-        name: 'miejsce',
-        position:{}
-      };
+      var meetpoint = get_meetpoint();
 
-      accepted_person_socket.emit('meet', poi);
-      socket.emit('meet', poi);
+      accepted_person_socket.emit('meet', meetpoint);
+      socket.emit('meet', meetpoint);
     }
     else {
       // TODO: not acceted
