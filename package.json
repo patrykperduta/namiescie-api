@@ -1,6 +1,8 @@
 {
-    "name": "namiescie",
-    "version": "0.0.1",
-    "description": "namiescie",
-    "dependencies": {}
+  "name": "namiescie",
+  "version": "0.0.1",
+  "description": "namiescie",
+  "dependencies": {
+    "socket.io": "^1.4.5"
+  }
 }
