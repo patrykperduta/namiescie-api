@@ -78,7 +78,7 @@ function handle_ping(socket, payload) {
 
 function handle_pong(socket, payload) {
     console.log('on_pong received:', JSON.stringify(payload));
-    if (payload.acceted == true) {
+    if (payload.accpeted == true) {
       var accepted_person_id = payload.id;
       var accepted_person_socket = sockets[accepted_person_id];
       var topic = socket.topic;
