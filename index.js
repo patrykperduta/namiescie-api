@@ -44,6 +44,12 @@ var places = [
   }
 ];
 
+function broadcast(people, event, payload) {
+  people.forEach(person => {
+    if (person.socket) person.socket.emit(event, payload);
+  });
+}
+
 function filterPeopleByTopic(people, topic) {
   return people.filter(person => person.topic === topic);
 }
@@ -66,14 +72,15 @@ function handleDisconnect(socket) {
   console.log("on disconnect");
 
   people = people.filter(person => person.socket !== socket);
-  io.emit('people', people.map(serializePerson));
+  broadcast(people, 'people', people.map(serializePerson));
 }
 
 function handleIntro(socket, payload) {
   console.log("on intro");
 
   people.push(Object.assign({}, payload, { socket: socket }));
-  io.emit('people', filterPeopleByTopic(people, payload.topic).map(serializePerson));
+  const peopleFromTopic = filterPeopleByTopic(people, payload.topic);
+  broadcast(peopleFromTopic, "people", peopleFromTopic.map(serializePerson));
 }
 
 function handleNotify(socket, payload) {
