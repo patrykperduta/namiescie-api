@@ -41,7 +41,7 @@ function get_people_list(people){
 
 function handle_intro(socket, payload) {
     console.log('on_intro received:', JSON.stringify(payload));
-    socket.broadcast.emit('people', get_people_list(people));
+    io.emit('people', get_people_list(people));
 }
 
 function handle_ping(socket, payload) {
