@@ -1,5 +1,12 @@
-var http = require('http').Server();
+var app = require('express')();
+var http = require('http').Server(app);
 var io = require('socket.io')(http);
+
+
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.html');
+});
+
 
 function on_intro(payload) {
     console.log('on_intro received:' + payload);
@@ -16,6 +23,7 @@ function on_pong(payload) {
     // id emit meet
     // user emit meet
 }
+
 
 io.on('connection', function(socket) {
     socket.on('intro', on_intro);
