@@ -25,7 +25,7 @@ var people = {
             lng: 17.007773
         }
     }
-}
+};
 
 function on_intro(payload) {
     console.log('on_intro received:' + payload);
