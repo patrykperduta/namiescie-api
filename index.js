@@ -1,4 +1,4 @@
-var http = require('http').Server(app);
+var http = require('http').Server();
 var io = require('socket.io')(http);
 
 function on_intro(payload) {
