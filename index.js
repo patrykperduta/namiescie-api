@@ -4,29 +4,30 @@ var io = require('socket.io')(http);
 
 
 var people = {
-    piwo: {
-        1: {
-            sex: "male",
-            position: {
-                lat: 51.084812,
-                lng: 17.013667
-            }
-        },
-        2: {
-            sex: "female",
-            position: {
-                lat: 51.087775,
-                lng: 17.013924
-            }
-        },
-        3: {
-            sex: "female",
-            position: {
-                lat: 51.087406,
-                lng: 17.007773
-            }
+    1: {
+        sex: "male",
+        topic: "beer",
+        position: {
+            lat: 51.084812,
+            lng: 17.013667
         }
     },
+    2: {
+        sex: "female",
+        topic: "beer",
+        position: {
+            lat: 51.087775,
+            lng: 17.013924
+        }
+    },
+    3: {
+        sex: "female",
+        topic: "beer",
+        position: {
+            lat: 51.087406,
+            lng: 17.007773
+        }
+    }
 };
 
 var meetpoints = {
@@ -42,8 +43,8 @@ var meetpoints = {
 var sockets = {};
 
 
-function get_people_list_by_topic(people, topic){
-    return Object.keys(people[topic])
+function get_people_list(people){
+    return Object.keys(people)
       .map(id => Object.assign({}, people[id], { id: id }))
 }
 
@@ -58,14 +59,11 @@ function handle_intro(socket, payload) {
     };
     var topic = payload.topic;
     var id = payload.id;
-
-    people[topic][id] = person;
-    sockets[id] = socket;
-    socket.id = id;
-    socket.topic = topic;
+    person.socket = socket;
+    people[id] = person;
 
     console.log('on_intro received:', JSON.stringify(payload));
-    io.emit('people', get_people_list_by_topic(people, topic));
+    io.emit('people', get_people_list());
 }
 
 
