@@ -27,9 +27,20 @@ var people = {
     }
 };
 
+
+function get_people_list(people){
+  var people_list = [];
+  var keys = Object.keys(people);
+  for (var key in keys){
+    people_list.push(people[key]);
+    people_list[people_list.length-1].id = key;
+  }
+  return people_list;
+}
+
 function handle_intro(payload) {
     console.log('on_intro received:' + payload);
-    socket.broadcast.emit('people', people);
+    socket.broadcast.emit('people', get_people_list(people));
 }
 
 function handle_ping(payload) {
@@ -53,7 +64,7 @@ io.on('connection', function(socket) {
 
 http.listen(process.env.PORT || 3000, function() {
     console.log('listening on *:', process.env.PORT || 3000);
-    console.log('people defined: \n', people);
+    //console.log('people defined: \n', get_people_list(people));
 });
 
 
