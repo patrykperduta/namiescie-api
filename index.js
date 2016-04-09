@@ -27,12 +27,24 @@ var people = {
     }
 };
 
+var sockets = {};
+
 function get_people_list(people){
     return Object.keys(people)
       .map(id => Object.assign({}, people[id], { id: id }));
 }
 
 function handle_intro(socket, payload) {
+    var person = {
+      sex: payload.sex,
+      position: payload.position,
+    };
+    var topic = payload.topic;
+    var id = payload.id;
+
+    people[id] = person;
+    sockets[id] = socket;
+
     console.log('on_intro received:', JSON.stringify(payload));
     io.emit('people', get_people_list(people));
 }
