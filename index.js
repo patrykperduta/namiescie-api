@@ -27,7 +27,6 @@ var people = {
     }
 };
 
-
 function get_people_list(people){
     var return_list = [];
     for (var key in Object.keys(people)){
@@ -39,27 +38,27 @@ function get_people_list(people){
     return return_list;
 }
 
-function handle_intro(payload) {
-    console.log('on_intro received:' + payload);
+function handle_intro(socket, payload) {
+    console.log('on_intro received:', JSON.stringify(payload));
     socket.broadcast.emit('people', get_people_list(people));
 }
 
-function handle_ping(payload) {
-    console.log('on_ping received:' + payload);
+function handle_ping(socket, payload) {
+    console.log('on_ping received:', JSON.stringify(payload));
     // id emit ping
 }
 
-function handle_pong(payload) {
-    console.log('on_pong received:' + payload);
+function handle_pong(socket, payload) {
+    console.log('on_pong received:', JSON.stringify(payload));
     // id emit meet
     // user emit meet
 }
-
+//
 
 io.on('connection', function(socket) {
-    socket.on('intro', handle_intro);
-    socket.on('ping', handle_ping);
-    socket.on('pong', handle_pong);
+    socket.on('intro', payload => handle_intro(socket, payload));
+    socket.on('ping', payload => handle_ping(socket, payload));
+    socket.on('pong', payload => handle_pong(socket, payload));
 });
 
 
