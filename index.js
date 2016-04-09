@@ -2,17 +2,17 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 function on_intro(payload) {
-    console.log('received:' + payload);
+    console.log('on_intro received:' + payload);
     // broadcast emit people
 }
 
 function on_ping(payload) {
-    console.log('received:' + payload);
+    console.log('on_ping received:' + payload);
     // id emit ping
 }
 
 function on_pong(payload) {
-    console.log('received:' + payload);
+    console.log('on_pong received:' + payload);
     // id emit meet
     // user emit meet
 }
