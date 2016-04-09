@@ -29,6 +29,16 @@ var people = {
     },
 };
 
+var meetpoints = {
+    1: {
+        name: "Szynkarnia",
+        position: {
+            lat: 51.109328,
+            lng: 17.025007
+        }
+    }
+}
+
 var sockets = {};
 
 function get_people_list_by_topic(people, topic){
