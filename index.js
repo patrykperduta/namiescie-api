@@ -41,6 +41,14 @@ var places = [
       lat: 51.109328,
       lng: 17.025007
     }
+  },
+    id: uuid.v4(),
+    name: "Cukiernia Furtak",
+    position: {
+      lat: 51.085025,
+      lng: 17.010706
+    }
+  {
   }
 ];
 
@@ -59,7 +67,7 @@ function findById(collection, id) {
 }
 
 function getNearestPlace(places, sourcePos, destinationPos) {
-  return places[0];
+  return places[1];
 }
 
 function serializePerson(person) {
