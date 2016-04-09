@@ -28,15 +28,8 @@ var people = {
 };
 
 function get_people_list(people){
-    var return_list = [];
-    var people_ids = Object.keys(people);
-    for (var index in people_ids){
-        var key = people_ids[index];
-        var person = people[key];
-        person.id = key;
-        return_list.push(person);
-    }
-    return return_list;
+    return Object.keys(people)
+      .map(id => Object.assign({}, people[id], { id: id }));
 }
 
 function handle_intro(socket, payload) {
